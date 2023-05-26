@@ -15,13 +15,11 @@ SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3000', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['poolus.sku-sku.com']
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-]
+CORS_ORIGIN_WHITELIST = ['poolus.sku-sku.com']
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
