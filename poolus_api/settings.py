@@ -15,7 +15,45 @@ SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['poolus.sku-sku.com']
+ALLOWED_HOSTS = ['3000', '127.0.0.1', 'localhost']
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    "withcredentials",
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+    'djangorestframework_camel_case.render.CamelCaseJSONRenderer', 
+    'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+    'djangorestframework_camel_case.parser.CamelCaseFormParser', 
+    'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+    'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
+}
 
 
 # Application definition
@@ -35,10 +73,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -102,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul' # 'UTC'#
 
 USE_I18N = True
 

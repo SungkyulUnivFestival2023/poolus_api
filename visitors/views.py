@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .serializers import VisitorsSerializer
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
@@ -35,7 +35,7 @@ class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gene
     
 def CountView(request):  
     if 'visited' in request.COOKIES:
-        return Response(status=status.HTTP_202_ACCEPTED)
+        return JsonResponse({"msg": "Again!"})# 어딘가로 보내야하는디?
     
     counter = Counter.objects.first()
     if not counter:
@@ -45,6 +45,6 @@ def CountView(request):
         counter.count += 1
         counter.save()
     
-    response = HttpResponse("Welcome")
+    response = JsonResponse({"msg": "Welcome!"})
     response.set_cookie('visited', 'visited', max_age=3600) # 쿠키 설정
     return response

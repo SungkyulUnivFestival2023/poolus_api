@@ -4,5 +4,5 @@ from .views import *
 
 urlpatterns = [
     path('', VisitorsView.as_view()),
-    # path('counts/', CountView),
+    path('counts/', CountView),
 ]
