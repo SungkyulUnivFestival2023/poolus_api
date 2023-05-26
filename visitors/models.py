@@ -8,3 +8,9 @@ class Visitors(models.Model):
     
     def __str__(self):
         return self.phone
+
+class Counter(models.Model):
+    count = models.PositiveIntegerField(default=0)
+    
+    def __str__(self):
+        return f'total: {self.count}'

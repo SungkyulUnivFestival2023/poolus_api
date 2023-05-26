@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .serializers import VisitorsSerializer
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
-from .models import Visitors
+from .models import Visitors, Counter
 
 class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Visitors.objects.all()
@@ -31,3 +32,19 @@ class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gene
         return ip if ip else Response(status=status.HTTP_403_FORBIDDEN)
     # 403에러 뜨면, 이미 작성한 사용자라고 프론트에서 뜨워줘야함
     # 403이 아닌 다른 코드로 할 수 있음
+    
+def CountView(request):  
+    if 'visited' in request.COOKIES:
+        return Response(status=status.HTTP_202_ACCEPTED)
+    
+    counter = Counter.objects.first()
+    if not counter:
+        # 객체가 없으면 count를 1로 초기화한 새 인스턴스 생성
+        counter = Counter.objects.create(count=1)
+    else:
+        counter.count += 1
+        counter.save()
+    
+    response = HttpResponse("Welcome")
+    response.set_cookie('visited', 'visited', max_age=3600) # 쿠키 설정
+    return response
