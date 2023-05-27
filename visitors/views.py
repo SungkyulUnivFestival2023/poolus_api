@@ -43,4 +43,6 @@ def CountView(request):
     counter.count += 1
     counter.save()
 
-    return Response
+    return JsonResponse({
+        "visited" : "hello"
+        })
