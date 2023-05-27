@@ -1,7 +1,4 @@
 from django.db import models
-# from django.utils import timezone
-# from datetime import timedelta
-
 
 class Visitors(models.Model):
     ip_address = models.GenericIPAddressField(primary_key=True)

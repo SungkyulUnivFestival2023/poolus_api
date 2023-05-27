@@ -5,7 +5,6 @@ from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from .models import Visitors, Counter
 from django.utils import timezone
-# from datetime import timedelta
 
 class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Visitors.objects.all()
@@ -36,8 +35,6 @@ class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gene
     # 403이 아닌 다른 코드로 할 수 있음
     
 def CountView(request):  
-    if 'visited' in request.COOKIES:
-        return JsonResponse({"msg": "Again!"})# 어딘가로 보내야하는디?
     try:
         counter = Counter.objects.get(date=timezone.now())
     except Counter.DoesNotExist:
@@ -45,7 +42,5 @@ def CountView(request):
 
     counter.count += 1
     counter.save()
-    
-    response = JsonResponse({"msg": "Welcome!"})
-    response.set_cookie('visited', 'visited', max_age=3600) # 쿠키 설정
-    return response
+
+    return Response
