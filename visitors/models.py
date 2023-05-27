@@ -1,4 +1,7 @@
 from django.db import models
+# from django.utils import timezone
+# from datetime import timedelta
+
 
 class Visitors(models.Model):
     ip_address = models.GenericIPAddressField(primary_key=True)
@@ -11,6 +14,7 @@ class Visitors(models.Model):
 
 class Counter(models.Model):
     count = models.PositiveIntegerField(default=0)
+    date = models.DateField(auto_now_add=True, null=True, blank=True)
     
     def __str__(self):
-        return f'total: {self.count}'
+        return f'{self.date} : {self.count}'

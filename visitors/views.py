@@ -4,6 +4,8 @@ from .serializers import VisitorsSerializer
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from .models import Visitors, Counter
+from django.utils import timezone
+# from datetime import timedelta
 
 class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Visitors.objects.all()
@@ -36,14 +38,13 @@ class VisitorsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gene
 def CountView(request):  
     if 'visited' in request.COOKIES:
         return JsonResponse({"msg": "Again!"})# 어딘가로 보내야하는디?
-    
-    counter = Counter.objects.first()
-    if not counter:
-        # 객체가 없으면 count를 1로 초기화한 새 인스턴스 생성
-        counter = Counter.objects.create(count=1)
-    else:
-        counter.count += 1
-        counter.save()
+    try:
+        counter = Counter.objects.get(date=timezone.now())
+    except Counter.DoesNotExist:
+        counter = Counter.objects.create(count=0, date=timezone.now())
+
+    counter.count += 1
+    counter.save()
     
     response = JsonResponse({"msg": "Welcome!"})
     response.set_cookie('visited', 'visited', max_age=3600) # 쿠키 설정
