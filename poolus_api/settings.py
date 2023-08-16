@@ -19,7 +19,7 @@ ALLOWED_HOSTS = ['poolus.sku-sku.com', 'localhost', '127.0.0.1']
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ['poolus.sku-sku.com']
+CORS_ORIGIN_WHITELIST = ['https://poolus.sku-sku.com']
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',

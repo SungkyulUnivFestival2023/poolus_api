@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 Pipfile
 my_settings.py
+static/
 *.log
 *.pot
 *.pyc
@@ -163,6 +164,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
